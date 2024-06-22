@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>extractdoc bookmarklet</title>
+  <style type="text/css">
+    #bookmarklet {
+      font-size: 200%;
+    }
+
+    #bookmarklet :hover {
+      background-color: yellow;
+    }
+
+    .footer {
+      font-size: 70%;
+      color: #888;
+      margin-top: 4em;
+    }
+
+    .printimg {
+      width: 245px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>extract doc bookmarklet</h1>
+
+  <p>This bookmarklet will extract document page images into a new tab that can be printed (or saved to PDF).</p>
+
+  <div>
+    <ol>
+      <li>Add the following link as a bookmark (right click on it, add bookmark).</li>
+      <li>Go back to the tab with the document you want to extract.</li>
+      <li>Make sure the document is open, then activate the "extract doc" bookmark you just created.</li>
+      <li>This should open a new tab, which (after a brief delay) you can read, print, or save to PDF.</li>
+    </ol>
+
+    <p>Here is the bookmarklet:</p>
+    <p>
+      <a href="#" id="bookmarklet">extract doc</a>
+    </p>
+    <p>
+      Note: When printing or saving to PDF, select "Fit to page width" for best results.
+      <br>
+      <img class="printimg" src="print-options.png">
+    </p>
+
+    <p class="footer">For people who want to <a href="extractdoc.js">inspect the code.</a></p>
+  </div>
+
+  <script>
+    async function doit() {
+      const res = await fetch('extractdoc.js');
+      const src = await res.text();
+      const dst = document.getElementById('bookmarklet');
+      dst.href = `javascript: (function() {
+        ${src}
+      })();`;
+    }
+
+    doit();
+  </script>
+</body>
+
+</html>
